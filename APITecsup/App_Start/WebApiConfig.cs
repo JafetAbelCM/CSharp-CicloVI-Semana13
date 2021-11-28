@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APITecsup.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -12,7 +13,7 @@ namespace APITecsup
             // Web API configuration and services
 
             // Web API routes
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
 
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
@@ -20,11 +21,24 @@ namespace APITecsup
             //    defaults: new { id = RouteParameter.Optional }
             //);
 
+            // Configuración de rutas y servicios de API
+            config.MapHttpAttributeRoutes();
+
+            config.MessageHandlers.Add(new TokenValidationHandler());
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{action}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }
