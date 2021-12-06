@@ -13,6 +13,8 @@ using APITecsup.Models;
 
 namespace APITecsup.Controllers
 {
+    //[Authorize]
+    //[RoutePrefix("api/details")]
     public class DetailsController : ApiController
     {
         private ExampleContext db = new ExampleContext();

@@ -13,46 +13,44 @@ using APITecsup.Models;
 
 namespace APITecsup.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/people")]
-    public class PeopleController : ApiController
+    public class SongsController : ApiController
     {
         private ExampleContext db = new ExampleContext();
 
-        // GET: api/People
-        public IQueryable<Person> GetPeople()
+        // GET: api/Songs
+        public IQueryable<Song> GetSongs()
         {
-            return db.People;
+            return db.Songs;
         }
 
-        // GET: api/People/5
-        [ResponseType(typeof(Person))]
-        public IHttpActionResult GetPerson(int id)
+        // GET: api/Songs/5
+        [ResponseType(typeof(Song))]
+        public IHttpActionResult GetSong(int id)
         {
-            Person person = db.People.Find(id);
-            if (person == null)
+            Song song = db.Songs.Find(id);
+            if (song == null)
             {
                 return NotFound();
             }
 
-            return Ok(person);
+            return Ok(song);
         }
 
-        // PUT: api/People/5
+        // PUT: api/Songs/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPerson(int id, Person person)
+        public IHttpActionResult PutSong(int id, Song song)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != person.PersonID)
+            if (id != song.songID)
             {
                 return BadRequest();
             }
 
-            db.Entry(person).State = EntityState.Modified;
+            db.Entry(song).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +58,7 @@ namespace APITecsup.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PersonExists(id))
+                if (!SongExists(id))
                 {
                     return NotFound();
                 }
@@ -73,35 +71,35 @@ namespace APITecsup.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/People
-        [ResponseType(typeof(Person))]
-        public IHttpActionResult PostPerson(Person person)
+        // POST: api/Songs
+        [ResponseType(typeof(Song))]
+        public IHttpActionResult PostSong(Song song)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.People.Add(person);
+            db.Songs.Add(song);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = person.PersonID }, person);
+            return CreatedAtRoute("DefaultApi", new { id = song.songID }, song);
         }
 
-        // DELETE: api/People/5
-        [ResponseType(typeof(Person))]
-        public IHttpActionResult DeletePerson(int id)
+        // DELETE: api/Songs/5
+        [ResponseType(typeof(Song))]
+        public IHttpActionResult DeleteSong(int id)
         {
-            Person person = db.People.Find(id);
-            if (person == null)
+            Song song = db.Songs.Find(id);
+            if (song == null)
             {
                 return NotFound();
             }
 
-            db.People.Remove(person);
+            db.Songs.Remove(song);
             db.SaveChanges();
 
-            return Ok(person);
+            return Ok(song);
         }
 
         protected override void Dispose(bool disposing)
@@ -113,9 +111,9 @@ namespace APITecsup.Controllers
             base.Dispose(disposing);
         }
 
-        private bool PersonExists(int id)
+        private bool SongExists(int id)
         {
-            return db.People.Count(e => e.PersonID == id) > 0;
+            return db.Songs.Count(e => e.songID == id) > 0;
         }
     }
 }
