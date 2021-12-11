@@ -9,6 +9,7 @@ namespace APITecsup.Responses
     {
         public int InvoiceID { get; set; }
         public string Number { get; set; }
-        
+        public int Total { get; set; }
+
     }
 }
